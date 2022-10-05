@@ -39,9 +39,33 @@ class IncidentDB(models.Model):
     a_brief_description_of_the_incident = models.TextField(verbose_name='Краткое описание происшествия')
 
     def __str__(self):
-        return f'{self.registration_number}'
+        return f'{self.number_criminal_case}'
 
     class Meta:
         verbose_name = 'Происшествие'
         verbose_name_plural = 'Происшествия'
         ordering = ('registration_number',)
+
+
+class Faces(models.Model):
+    id_base = models.AutoField(primary_key=True)
+    number_criminal_case = models.ForeignKey(IncidentDB, models.DO_NOTHING, verbose_name='Номер уголовного дела',
+                                             null=True, blank=True)
+    person = models.CharField(max_length=35, verbose_name='Ф.И.О.')
+    registration_number_of_person = models.DecimalField(unique=True, decimal_places=0, max_digits=10, max_length=10,
+                                                        verbose_name='Регистрационный номер лица',
+                                                        help_text='Не более 10 цифр')
+    address = models.CharField(max_length=30, verbose_name='Адрес')
+    num_convictions = models.DecimalField(unique=True, decimal_places=0, max_digits=10, max_length=10,
+                                          verbose_name='Количество судимостей', help_text='Не более 10 цифр')
+    fingerprint_cipher = models.CharField(max_length=15, verbose_name='Шифр отпечатков пальцев',
+                                          help_text='Не более 15 знаков')
+    status_of_a_person = models.CharField(max_length=30, verbose_name='Статус гражданина в происшествии')
+
+    def __str__(self):
+        return f'{self.person}'
+
+    class Meta:
+        verbose_name = 'Лицо'
+        verbose_name_plural = 'Лица'
+        ordering = ('person',)

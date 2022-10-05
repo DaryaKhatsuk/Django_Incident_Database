@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employees, IncidentDB
+from .models import Employees, IncidentDB, Faces
 
 
 @admin.register(Employees)
@@ -18,3 +18,10 @@ class IncidentDBAdmin(admin.ModelAdmin):
     list_filter = ('registration_number', 'type_event')
     search_fields = ('registration_number', 'type_event',)
 
+
+@admin.register(Faces)
+class FacesAdmin(admin.ModelAdmin):
+    list_display = ('number_criminal_case', 'person', 'registration_number_of_person', 'address', 'num_convictions',
+                    'fingerprint_cipher', 'status_of_a_person')
+    list_filter = ('number_criminal_case', 'person', 'status_of_a_person')
+    search_fields = ('number_criminal_case', 'person',)
