@@ -1,6 +1,5 @@
 # Django Incident Database
 Technical task:
-
 Incident Registration Database It is necessary to create an incident registration database, which should contain:
 
     data for registering reports of incidents (registration number of the message, date of registration, brief plot (type of incident), source of the message);
